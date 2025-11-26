@@ -1,0 +1,100 @@
+schema: '2.0'
+stages:
+  data_pipeline:
+    cmd: python main.py --stage data_pipeline
+    deps:
+    - path: config_file/config.yaml
+      hash: md5
+      md5: 16f00f7c647854f9d0241a09fb078574
+      size: 1306
+    - path: config_file/schema.yaml
+      hash: md5
+      md5: 9481042344538e679af1fc19cfe316ed
+      size: 1091
+    - path: src/FareFinder/config/data_config.py
+      hash: md5
+      md5: 516486a50c577e1fbf84cf56cd4b689e
+      size: 2972
+    - path: src/FareFinder/pipeline/data_pipeline.py
+      hash: md5
+      md5: 51224175e715f984e413281fa9abdc83
+      size: 786
+    outs:
+    - path: artifacts/ingestion/
+      hash: md5
+      md5: fd38fe4250b03a99358d09336ec134f9.dir
+      size: 17192085
+      nfiles: 2
+    - path: artifacts/validation/status.json
+      hash: md5
+      md5: 86e6a2f694c57a675b3e2da6b95ff9ba
+      size: 23
+  feature_pipeline:
+    cmd: python main.py --stage feature_pipeline
+    deps:
+    - path: config_file/config.yaml
+      hash: md5
+      md5: 16f00f7c647854f9d0241a09fb078574
+      size: 1306
+    - path: config_file/params.yaml
+      hash: md5
+      md5: a57779b6ce2584b9f630221bf1d2d185
+      size: 402
+    - path: config_file/schema.yaml
+      hash: md5
+      md5: 9481042344538e679af1fc19cfe316ed
+      size: 1091
+    - path: src/FareFinder/config/data_config.py
+      hash: md5
+      md5: 516486a50c577e1fbf84cf56cd4b689e
+      size: 2972
+    - path: src/FareFinder/pipeline/feature_pipeline.py
+      hash: md5
+      md5: c4d92972ee487d056ff13eed66d456c1
+      size: 857
+    outs:
+    - path: artifacts/cleaning/
+      hash: md5
+      md5: e84fda45f46630e61043c3c0f9fafc51.dir
+      size: 5182498
+      nfiles: 1
+    - path: artifacts/transformation/label_encoders.pkl
+      hash: md5
+      md5: eccd4d8fd9db225e928aa5a3f28f1120
+      size: 2764
+    - path: artifacts/transformation/preprocessor.pkl
+      hash: md5
+      md5: 417d8e5e1fea17c493a409cf49e4c73c
+      size: 2536
+  model_pipeline:
+    cmd: python main.py --stage model_pipeline
+    deps:
+    - path: config_file/config.yaml
+      hash: md5
+      md5: 16f00f7c647854f9d0241a09fb078574
+      size: 1306
+    - path: config_file/params.yaml
+      hash: md5
+      md5: a57779b6ce2584b9f630221bf1d2d185
+      size: 402
+    - path: config_file/schema.yaml
+      hash: md5
+      md5: 9481042344538e679af1fc19cfe316ed
+      size: 1091
+    - path: src/FareFinder/config/model_config.py
+      hash: md5
+      md5: 5c44c00945cf07ef2aafa73d999083ab
+      size: 2334
+    - path: src/FareFinder/pipeline/model_pipeline.py
+      hash: md5
+      md5: 46659c2c8cc573d5914c0268c07eda0c
+      size: 726
+    outs:
+    - path: artifacts/evaluation/metrics.json
+      hash: md5
+      md5: 32e4d1c2455b22cbb2f614f4bfac74bf
+      size: 119
+    - path: artifacts/trainer/model.joblib
+      hash: md5
+      md5: e82678ad1bf5a425d4301f64c87ce661
+      size: 149207

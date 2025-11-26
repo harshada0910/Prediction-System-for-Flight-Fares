@@ -1,0 +1,44 @@
+stages:
+  data_pipeline:
+    cmd: python main.py --stage data_pipeline
+
+    deps:
+      - src/FareFinder/pipeline/data_pipeline.py
+      - src/FareFinder/config/data_config.py
+      - config_file/config.yaml
+      - config_file/schema.yaml
+
+    outs:
+      - artifacts/ingestion/
+      - artifacts/validation/status.json
+
+
+  feature_pipeline:
+    cmd: python main.py --stage feature_pipeline
+
+    deps:
+      - src/FareFinder/pipeline/feature_pipeline.py
+      - src/FareFinder/config/data_config.py
+      - config_file/config.yaml
+      - config_file/schema.yaml
+      - config_file/params.yaml
+
+    outs:
+      - artifacts/cleaning/
+      - artifacts/transformation/preprocessor.pkl
+      - artifacts/transformation/label_encoders.pkl
+
+
+  model_pipeline:
+    cmd: python main.py --stage model_pipeline
+
+    deps:
+      - src/FareFinder/pipeline/model_pipeline.py
+      - src/FareFinder/config/model_config.py
+      - config_file/config.yaml
+      - config_file/schema.yaml
+      - config_file/params.yaml
+    
+    outs:
+      - artifacts/trainer/model.joblib
+      - artifacts/evaluation/metrics.json
